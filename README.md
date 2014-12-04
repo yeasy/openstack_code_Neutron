@@ -2,7 +2,7 @@ OpenStack Neutron 源码分析
 ============
 [Neutron](https://wiki.openstack.org/wiki/Neutron) 是 OpenStack 项目中负责提供网络服务的组件，它基于软件定义网络的思想，实现了网络虚拟化下的资源管理。
 
-本书将剖析 Neutron 组件（服务端）的代码。
+本书将剖析 Neutron 组件的代码。
 
 最新版本在线阅读：[GitBook](https://www.gitbook.io/book/yeasy/openstack_code_Neutron)。
 
