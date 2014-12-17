@@ -1,0 +1,8 @@
+#### rpc.py
+
+包括两个类：RpcCallbacks和AgentNotifierApi。
+
+前者负责当agent往plugin发出rpc请求时候，plugin实现请求的相关动作，除了继承自父类（dhcp rpc、dvr rpc、sg_db rpc和tunnel rpc）中的方法，还包括get_port_from_device、get_device_details、get_devices_details_list、update_device_down、update_device_up、get_dvr_mac_address_by_host、get_compute_ports_on_host_by_subnet、get_subnet_for_dvr等方法。
+
+后者负责当plugin往agent发出rpc请求（plugin通知agent）的时候，plugin端的方法。继承自dvr、sg、tunnel等父类。此外还实现了network_delete、port_update两个方法。
+

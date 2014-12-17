@@ -1,0 +1,6 @@
+# agents
+firewall_agent_api.py中定义了FWaaSPluginApiMixin类和FWaaSAgentRpcCallbackMixin类。
+
+前者继承自rpc.RpcProxy，是agent往plugin发出rpc消息时候，为agent一端使用的方法。包括set_firewall_status()方法和firewall_deleted()方法。
+
+后者为agent的实现提供mixin，分别声明了create_firewall、update_firewall、delete_firewall三个接口，这三个接口用于处理plugin发出的对应rpc调用请求。

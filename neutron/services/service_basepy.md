@@ -1,0 +1,5 @@
+### service_base.py
+
+定义了抽象基础类ServicePluginBase，继承自extensions.PluginInterface类。为所有的service plugin定义基础的接口，包括get_plugin_type、get_plugin_name、get_plugin_description。
+
+定义了方法load_drivers，该方法为指定的service加载驱动。
