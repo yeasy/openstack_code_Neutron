@@ -1,1 +1,8 @@
-# dhcpagentscheduler.py
+### dhcpagentscheduler.py
+NetworkSchedulerController类，继承自wsgi.Controller，对网络调度器进行创建、删除和索引。
+
+DhcpAgentsHostingNetworkController类，继承自wsgi.Controller，对dhcp_agent_hosting_network进行索引操作。
+
+Dhcpagentscheduler类，继承自extensions.ExtensionDescriptor，对dhcp agent的调度进行支持。
+
+DhcpAgentSchedulerPluginBase类，提供对dhcp agent的调度器进行操作的REST API，包括添加、删除和列出网络到dhcp agent等。

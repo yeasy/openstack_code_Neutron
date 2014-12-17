@@ -1,1 +1,4 @@
-# loadbalancer.py
+### loadbalancer.py
+Loadbalancer扩展类，继承自extensions.ExtensionDescriptor，支持lbaas agent调度器的支持。
+
+LoadBalancerPluginBase抽象基础类，继承自service_base.ServicePluginBase。被loadbalancer_db.py中的LoadBalancerPluginDb类继承。

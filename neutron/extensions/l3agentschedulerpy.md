@@ -1,1 +1,5 @@
-# l3agentscheduler.py
+### l3agentscheduler.py
+RouterSchedulerController类和L3AgentsHostingRouterController类，都继承自wsgi.Controller。
+
+L3agentscheduler扩展类，继承自extensions.ExtensionDescriptor，支持l3 agent的调度器。
+L3AgentSchedulerPluginBase，为管理l3 agent调度器提供REST API支持。
