@@ -1,0 +1,15 @@
+### extensions.py
+定义了实现extension的几个类。
+ExtensionDescriptor类定义了作为extension描述的基础类。
+
+ActionExtensionController类继承自wsgi.Controller，负责对扩展行动的管理。
+
+RequestExtensionController类继承自wsgi.Controller，负责对扩展request的管理。
+
+ExtensionController类继承自wsgi.Controller，定义了index、show、delete、create等方法，对扩展进行管理。
+
+ExtensionMiddleware继承自wsgi.Middleware，负责处理扩展的中间件。
+
+ExtensionManager类负责从配置文件中加载扩展。
+
+PluginAwareExtensionManager类继承自ExtensionManager，增加对plugin对extension支持情况的检查。

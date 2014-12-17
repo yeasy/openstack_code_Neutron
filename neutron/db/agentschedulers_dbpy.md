@@ -1,0 +1,8 @@
+### agentschedulers_db.py
+跟agent schedululer相关的一些数据库资源和操作类。
+
+继承自model_base.BASEV2的NetworkDhcpAgentBinding类表示数据库中网络和dhcpagent的一条绑定关系。
+
+继承自agents_db.AgentDbMixin的AgentSchedulerDbMixin类。
+
+继承自AgentSchedulerDbMixin类的DhcpAgentSchedulerDbMixin类用于添加dhcp agent扩展的支持到db_base_plugin_v2。

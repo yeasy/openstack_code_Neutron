@@ -1,0 +1,4 @@
+#### l3_db.py
+代表了路由器、浮动IP资源和对应操作实现。
+
+定义了继承自model_base.BASEV2类、models_v2.HasId类和models_v2.HasTenant类的数据库资源类Router和FloatingIP，以及继承自neutron.extensions.l3.RouterPluginBase类的资源操作类L3_NAT_db_mixin。L3_NAT_db_mixin实际上为核心plugin添加了L3/NAT的扩展资源方法。

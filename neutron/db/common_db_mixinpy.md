@@ -1,0 +1,3 @@
+### common_db_mixin.py
+定义了在核心plugin和服务plugin中的常见的数据库方法。
+实现了扩展的插件类则需要通过register_model_query_hook来注册它的hook。

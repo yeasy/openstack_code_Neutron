@@ -1,0 +1,3 @@
+#### routerservicetype_db.py
+实现对router服务类型的支持。
+定义了继承自model_base.BASEV2类的数据库资源类RouterServiceTypeBinding和资源操作类RouterServiceTypeDbMixin。

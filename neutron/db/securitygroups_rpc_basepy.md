@@ -1,0 +1,6 @@
+### securitygroups_rpc_base.py
+实现对安全组的扩展rpc的基础支持。
+
+继承自neutron.db.securitygroups_rpc_base.SecurityGroupDbMixin类的SecurityGroupServerRpcMixin，以及SecurityGroupServerRpcCallbackMixin类。
+
+后者为plugin提供了securitygroup的agent的支持。

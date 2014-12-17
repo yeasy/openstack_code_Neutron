@@ -1,0 +1,9 @@
+### rpc.py
+定义了类RequestContextSerializer，RpcProxy，RpcCallback，Service，Connection。
+
+其中RequestContextSerializer类中定义了对实体和上下文的序列化/反序列化，将RPC的通用上下文转化到Neutron上下文。
+RpcProxy类提供rpc层的操作，基本上所有需要进行rpc调用的应用都会用到这个类。其中分别定义了call，cast和fanout_cast方法来发出rpc调用请求。
+
+Service类代表运行在主机上的应用程序所代表的的服务，继承自service.Service，重载了start方法和stop方法。start方法中会创建三个消费连接来监听rpc请求。第一个是监听发送到某个topic上的所有主机上，第二个是监听发送到某个topic的特定主机上，最后一个是所有的广播请求。
+
+Connection类代表了rpc请求的相关连接。

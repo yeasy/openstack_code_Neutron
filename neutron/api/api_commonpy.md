@@ -1,0 +1,4 @@
+### api_common.py
+一些实现api通用的类和方法，包括。
+类：PaginationHelper、PaginationEmulatedHelper、PaginationNativeHelper、NoPaginationHelper、SortingHelper、SortingEmulatedHelper、SortingNativeHelper、NoSortingHelper、NeutronController。
+方法：get_filters、get_previous_link、get_next_link、get_limit_and_marker、list_args、get_sorts、get_page_reverse、get_pagination_links。

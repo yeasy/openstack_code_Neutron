@@ -1,0 +1,2 @@
+#### portsecurity_db.py
+定义了继承自model_base.BASEV2类的PortSecurityBinding资源类和NetworkSecurityBinding资源类，以及资源操作类PortSecurityDbMixin。

@@ -1,0 +1,2 @@
+#### routedserviceinsertion_db.py
+定义了继承自model_base.BASEV2类的数据库资源类ServiceRouterBinding和资源操作类RoutedServiceInsertionDbMixin。

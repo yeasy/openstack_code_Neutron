@@ -1,0 +1,8 @@
+### agents_db.py
+包括三个类，继承自model_base.BASEV2和models_v2.HasId的Agent类，继承自neutron.extensions.agent.AgentPluginBase的AgentDbMixin类，继承自rpc.RpcCallback的AgentExtRpcCallback。
+
+Agent类表示数据库中对一个agent的相关信息的记录。
+
+AgentDbMixin类用于添加对agent扩展的支持到db_base_plugin_v2，提供了获取配置、对agent进行curd操作等方法。
+
+AgentExtRpcCallback类在plugin的实现中用于处理rpc汇报，其中定义了report_state()方法用于向plugin汇报状态。
