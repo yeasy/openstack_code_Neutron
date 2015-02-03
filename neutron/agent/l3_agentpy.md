@@ -1,5 +1,5 @@
 ### l3_agent.py
-提供L3层服务的agent，包括L3NATAgent类、继承自它的L3NATAgentWithStateReport类（作为manager）、继承自n_rpc.RpcProxy类的L3PluginApi类（作为agent调用plugin一侧的api）和RouterInfo类。
+提供 L3 层服务的 agent，包括 L3NATAgent 类、继承自它的 L3NATAgentWithStateReport 类（作为manager）、继承自 n_rpc.RpcProxy 类的 L3PluginApi 类（作为 agent 调用 plugin 一侧的 api）和 RouterInfo 类。
 
 主过程为
 ```
@@ -15,22 +15,38 @@ def main(manager='neutron.agent.l3_agent.L3NATAgentWithStateReport'):
     service.launch(server).wait()
 ```
 
-也是标准的 service 流程，启动一个管理neutron-l3-agent执行程序的服务，该服务将监听topic为topics.L3_AGENT的rpc消息队列。
+也是标准的 service 流程。
 
-#### L3NATAgent类
-继承自firewall_l3_agent.FWaaSL3AgentRpcCallback和manager.Manager两个类。
-前者是由于现在的FWaaS设计都是挂载到router上的，因此，在创建router的时候，需要把对应的firewall添加上。不得不说这是个十分不合理的临时方案。
+从 conf.CONF 中注册各个系统常量，包括 L3 相关 agent 的参数、接口驱动、命名空间等等。
 
-而Manager作为一个进行rpc调用管理和执行周期性任务的基础类。
-初始化中根据配置信息，导入driver，获取admin的上下文，获取L3PluginApi，然后定期执行self._rpc_loop()方法。该方法根据数据库中的信息来同步本地的router。
+启动一个管理 neutron-l3-agent 执行程序的服务，该服务将监听 topic 为 topics.L3_AGENT 的 RPC 消息队列，管理类为 L3NATAgentWithStateReport。
 
-调用self._process_routers()方法和self._process_router_delete()方法，这两个方法会进一步对本地的iptables进行操作，完成router的添加或删除。
+#### L3NATAgent 类
+继承自 firewall_l3_agent.FWaaSL3AgentRpcCallback、l3_ha_agent.AgentMixin 和 manager.Manager。
 
-#### L3PluginApi类
-继承自neutron.common.rpc.RpcProxy类，是一个进行rpc调用的代理。
-被L3NATAgent类来调用，负责向L3的Plugin发出rpc消息（主题为topics.L3PLUGIN），这些消息到达plugin，最终被plugin的父类neutron.db.l3_rpc_base.L3RpcCallbackMixin类中的对应方法来处理，这些方法进一步调用父类neutron.db.l3_db.L3_NAT_db_mixin类中的对应方法跟数据库进行交互。
+前者是由于现在的 FWaaS 设计都是挂载到 router 上的，因此，在创建router 的时候，需要把对应的 firewall 添加上。
 
-目前定义了三个方法：get_external_network_id()通过rpc调用external_network_id()来获取外部网络的id；get_routers()通过rpc调用sync_routers()来获取所有的router的信息；update_floatingip_statuses()通过rpc调用update_floatingip_statuses()来更新flaoting ip的状态。
+而 Manager 作为一个进行rpc调用管理和执行周期性任务的基础类。
+初始化中根据配置信息，导入 driver，获取 admin 的上下文，获取 L3PluginApi，然后定期执行 self._rpc_loop() 方法。该方法根据数据库中的信息来同步本地的 router。
+
+调用 self._process_routers() 方法和 self._process_router_delete() 方法，这两个方法会进一步对本地的 iptables 进行操作，完成 router 的添加或删除。
 
 #### L3NATAgentWithStateReport类
-该类是L3 agent资源service的manager，其继承自L3NATAgent，并添加了rpc.PluginReportStateAPI类来进行周期性状态汇报。该类会以topic.PLUGIN向rpc队列中写入report_state()方法，并携带agent的状态信息作为参数。这些消息会被各个plugin收到。
+该类是 L3 agent 资源 service 的 manager，其继承自 L3NATAgent，并添加了 rpc.PluginReportStateAPI 类来进行周期性状态汇报。
+
+主要添加了两个方法。
+* `_report_state()`：定期的汇报自己的状态，以 `topic.PLUGIN` 作为主题向 rpc 队列中写入 agent 的状态信息消息。这些消息会被各个 plugin 收到。
+* `agent_updated()`：收到 agent_updated 消息的处理。
+
+#### L3PluginApi 类
+继承自 `neutron.common.rpc.RpcProxy` 类，是一个进行 rpc 调用的代理。
+
+被 L3NATAgent 类来调用，负责向 L3 的 Plugin 发出 rpc 消息（主题为 `topics.L3PLUGIN`），这些消息到达 plugin，最终被 plugin 的父类 neutron.db.l3_rpc_base.L3RpcCallbackMixin 类中的对应方法来处理，这些方法进一步调用父类 `neutron.db.l3_db.L3_NAT_db_mixin` 类中的对应方法跟数据库进行交互。
+
+目前定义了下面几个方法：
+* `get_routers()` 通过 rpc 调用 L3 Plugin 的 sync_routers() 方法来来获取外部网络的id。
+* `get_external_network_id()` 通过 rpc 调用 external_network_id() 来获取外部网络的id。
+* `update_floatingip_statuses()` 通过 rpc 调用 update_floatingip_statuses() 来更新 floating ip 的状态。
+* `get_ports_by_subnet()` 通过 rpc 调用 get_ports_by_subnet() 来获取对应 subnet 中的端口信息。
+* `get_service_plugin_list()` 通过 rpc 调用 get_service_plugin_list() 来获取 L3 Plugin 中激活服务的列表。
+

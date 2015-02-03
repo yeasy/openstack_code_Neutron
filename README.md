@@ -11,6 +11,9 @@ OpenStack Neutron 源码分析
 感谢所有的 [贡献者](https://github.com/yeasy/openstack_code_Neutron/graphs/contributors)。
 
 ## 更新历史:
+* V0.8: 2015-02-03
+    * 按照最新版本进行更新
+    * 添加更多服务的实现分析。
 * V0.71: 2014-08-07
     * 添加更多细节分析，添加对ML2的分析。
 * V0.7: 2014-07-18
